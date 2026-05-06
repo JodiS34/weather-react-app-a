@@ -4,7 +4,7 @@ import "./Weather.css";
 import "./Footer";
 import loader from "react-loader-spinner";
 
-export default function Weather() {
+export default function Weather(props) {
   let weatherData = {
     city: "New York",
     temperature: 19,
@@ -68,4 +68,12 @@ export default function Weather() {
       </div>
     </div>
   );
+  function handleResponse(response) {
+    alert(
+      `The weather in {response.data.name} is ${response.data.main.temp}°C`,
+    );
+  }
+  let apiKey = "3a94f3778290bfeee6127850dbbe51d";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${props.city}&appid=${apiKey}&units=metric`;
+  axios.get(apiURL).then(handleResponse);
 }
